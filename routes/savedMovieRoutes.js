@@ -4,6 +4,7 @@ const SavedMovies = require('../models/SavedMovies');
 const auth = require('../middleware/auth');
 
 module.exports = (app) => {
+  console.log("testing")
   app.post('/api/:userId/movies/add', async (req, res) => {
     const { userId } = req.params;
     const { movie } = req.body;
