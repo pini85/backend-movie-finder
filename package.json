@@ -29,7 +29,6 @@
     "jest-axe": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.5",
-    "node": "^14.17.4",
     "nodemon": "^2.0.12",
     "parse-torrent": "^9.1.5",
     "passport": "^0.4.1",
