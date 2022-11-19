@@ -9,7 +9,17 @@ module.exports = (app) => {
   );
 
   app.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
-    res.redirect('/');
+    let url;
+    console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'development') {
+      url = 'http://localhost:3000';
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      url = 'https://www.pinimovies.com/';
+    }
+
+    res.redirect(url);
   });
 
   app.get('/api/logout', (req, res) => {

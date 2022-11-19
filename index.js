@@ -24,16 +24,18 @@ app.use(
     keys: [keys.cookieKey],
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
 require('./routes/authRoutes')(app);
 require('./routes/savedMovieRoutes')(app);
 require('./routes/savedQueriesRoutes')(app);
 require('./routes/watchMovieRoutes')(app);
+
+// app.get('/', (req, res) => {
+//   res.send('hello world');
+// });
 
 if (process.env.NODE_ENV === 'production') {
   //if the handlers above won't resolve the request it will go to the next route handler below
