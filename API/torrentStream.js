@@ -2,9 +2,9 @@ const axios = require('axios');
 
 const apiDomain = () => {
   if (process.env.NODE_ENV === 'production') {
-    return 'http://www.my-cheap-ass-server.com';
+    return 'https://www.my-cheap-ass-server.link';
   }
-  return 'http://www.my-cheap-ass-server.com';
+  return 'https://www.my-cheap-ass-server.link';
 };
 
 const getTorrentStream = async (magnet) => {
