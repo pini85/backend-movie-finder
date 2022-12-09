@@ -1,20 +1,14 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const enforce = require('express-sslify');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
 const keys = require('./config/keys');
 app.use(bodyParser.json());
 require('./models/User');
 require('./models/SavedMovies');
-require('./services/passport');
 mongoose.connect(keys.mongoURI);
 
-//this wont work with passport js
-// app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(express.static(__dirname, { dotfiles: 'allow' }));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.get('Origin') || '*');
@@ -32,16 +26,6 @@ app.use((req, res, next) => {
 });
 // app.options('*', cors());
 // app.use(cors());
-
-app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey],
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/savedMovieRoutes')(app);

@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const user = new Schema({
-  _id: Schema.Types.ObjectId,
-  googleId: String,
+  firstName: String,
+  lastName: String,
+  picture: String,
+  email: String,
 });
 
 module.exports = mongoose.model('users', user);
