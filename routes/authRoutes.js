@@ -46,32 +46,27 @@ module.exports = (app) => {
             message: verificationResponse.error,
           });
         }
+        let userDoc;
 
         const profile = verificationResponse?.payload;
-        // console.log({ profile });
-
         const existsInDB = await User.findOne({ email: profile?.email });
 
         if (!existsInDB) {
-          console.log('user does not exsits');
-          // return console.log('user does not exist');
-          //save user to db
           const user = new User({
             firstName: profile?.given_name,
             lastName: profile?.family_name,
             picture: profile?.picture,
             email: profile?.email,
           });
-          await user.save();
+          userDoc = await user.save();
+        } else {
+          userDoc = existsInDB;
         }
 
         res.status(201).json({
           message: 'Login was successful',
           user: {
-            firstName: profile?.given_name,
-            lastName: profile?.family_name,
-            picture: profile?.picture,
-            email: profile?.email,
+            ...userDoc._doc,
             token: jwt.sign({ email: profile?.email }, keys.jwt_secret, {
               expiresIn: '1d',
             }),
