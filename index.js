@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
   }
   return next();
 });
+
 // app.options('*', cors());
 // app.use(cors());
 
