@@ -1,7 +1,6 @@
 require('dotenv-flow').config({
   path: './config',
 });
-console.log('yuuuuuu', process.env.MONGO_URI);
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -30,15 +29,14 @@ app.use((req, res, next) => {
 // app.options('*', cors());
 // app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send('hello world');
+});
 require('./routes/authRoutes')(app);
 require('./routes/savedMovieRoutes')(app);
 require('./routes/savedQueriesRoutes')(app);
 require('./routes/watchMovieRoutes')(app);
 require('./routes/aiMovieGeneratorRoutes')(app);
-
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
 
 if (process.env.NODE_ENV === 'production') {
   //if the handlers above won't resolve the request it will go to the next route handler below
