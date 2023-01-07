@@ -1,14 +1,13 @@
-const keys = require('../config/keys');
 const { OAuth2Client } = require('google-auth-library');
 
-const GOOGLE_CLIENT_ID = process.env.googleClientID;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 const verifyGoogleToken = async (token) => {
   try {
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: keys.googleClientID,
+      audience: process.env.GOOGLE_CLIENT_ID,
     });
     return { payload: ticket.getPayload() };
   } catch (error) {

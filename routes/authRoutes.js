@@ -1,6 +1,5 @@
 const verifyGoogleToken = require('../services/verifyGoogleToken');
 const User = require('../models/User');
-const keys = require('../config/keys');
 const jwt = require('jsonwebtoken');
 module.exports = (app) => {
   app.post('/api/auth/google/login', async (req, res) => {
@@ -28,7 +27,7 @@ module.exports = (app) => {
         } else {
           userDoc = existsInDB;
         }
-        const token = jwt.sign({ email: profile?.email }, keys.jwt_secret, {
+        const token = jwt.sign({ email: profile?.email }, process.env.JWT_SECRET, {
           expiresIn: '1d',
         });
 

@@ -8,6 +8,13 @@ const getTmdbWithId = async (id) => {
 
   return data;
 };
+const getMovieByTitle = async (title) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/search/movie?api_key=${ApiKey}&query=${title}`
+  );
+  return data;
+};
 module.exports = {
   getTmdbWithId,
+  getMovieByTitle,
 };

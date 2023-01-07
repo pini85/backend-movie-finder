@@ -1,14 +1,15 @@
+require('dotenv-flow').config({
+  path: './config',
+});
+console.log('yuuuuuu', process.env.MONGO_URI);
 const express = require('express');
 const app = express();
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const keys = require('./config/keys');
 app.use(bodyParser.json());
 require('./models/User');
 require('./models/SavedMovies');
-mongoose.connect(keys.mongoURI);
+mongoose.connect(process.env.MONGO_URI);
 
 app.use(express.static(__dirname, { dotfiles: 'allow' }));
 app.use((req, res, next) => {
@@ -33,6 +34,7 @@ require('./routes/authRoutes')(app);
 require('./routes/savedMovieRoutes')(app);
 require('./routes/savedQueriesRoutes')(app);
 require('./routes/watchMovieRoutes')(app);
+require('./routes/aiMovieGeneratorRoutes')(app);
 
 app.get('/', (req, res) => {
   res.send('hello world');
