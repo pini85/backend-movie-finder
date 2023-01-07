@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 // app.options('*', cors());
 // app.use(cors());
 app.get('/', (req, res) => {
+  console.log('hello world');
   res.send('hello world');
 });
 require('./routes/authRoutes')(app);
