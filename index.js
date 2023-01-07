@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 app.use(bodyParser.json());
 require('./models/User');
 require('./models/SavedMovies');
+console.log('mongo password', process.env.MONGO_URI);
+
 mongoose.connect(process.env.MONGO_URI);
 
 app.use(express.static(__dirname, { dotfiles: 'allow' }));
