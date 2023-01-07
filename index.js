@@ -1,6 +1,6 @@
-require('dotenv-flow').config({
-  path: './config',
-});
+// require('dotenv-flow').config({
+//   path: './config',
+// });
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -31,11 +31,11 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.send('hello world');
 });
-// require('./routes/authRoutes')(app);
-// require('./routes/savedMovieRoutes')(app);
-// require('./routes/savedQueriesRoutes')(app);
-// require('./routes/watchMovieRoutes')(app);
-// require('./routes/aiMovieGeneratorRoutes')(app);
+require('./routes/authRoutes')(app);
+require('./routes/savedMovieRoutes')(app);
+require('./routes/savedQueriesRoutes')(app);
+require('./routes/watchMovieRoutes')(app);
+require('./routes/aiMovieGeneratorRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
   //if the handlers above won't resolve the request it will go to the next route handler below
