@@ -1,6 +1,6 @@
-// require('dotenv-flow').config({
-//   path: './config',
-// });
+require('dotenv-flow').config({
+  path: './config',
+});
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
