@@ -26,7 +26,7 @@ const generateMovieCategory = async () => {
         temperature: 1,
         max_tokens: 200,
       });
-      console.log(completion.data.choices[0].text);
+
       suggestion = JSON.parse(completion.data.choices[0].text);
 
       category = suggestion.categoryName;
@@ -41,7 +41,7 @@ const generateMovieCategory = async () => {
       exisitingMovieNames.includes(movie)
     );
     const tmdbMovie = await getMovieByTitle(suggestion.mainMovie.name);
-    console.log(tmdbMovie.results[0].id);
+
     suggestion.mainMovie.title = movie;
     suggestion.mainMovie.id = tmdbMovie.results[0].id;
     suggestion.mainMovie.poster_path = tmdbMovie.results[0].poster_path;
@@ -49,7 +49,7 @@ const generateMovieCategory = async () => {
     suggestion.mainMovie.vote_average = tmdbMovie.results[0].vote_average;
     return suggestion;
   } catch (e) {
-    console.log({ e });
+    return e;
   }
 };
 

@@ -78,7 +78,6 @@ module.exports = (app) => {
     }
   });
   app.get('/api/watch', async (req, res) => {
-    console.log('IM HIT');
     try {
       const { torrent } = req.query;
       const data = await getTorrentStream(torrent);

@@ -3,14 +3,13 @@ const aiMovieCategories = require('../../models/aiMovieCategory');
 const { getMovieByTitle } = require('../../API/tmdb');
 
 const generatePrompt = (exisitingMovie, category, numberOfMovies) => {
-  return `Suggest ${numberOfMovies} movie title and with their imdb rating that fit the ${category} category. Should not include this ${exisitingMovie}. Use the exact syntax of the example below. needs to be json format
-  example:
-  {"category": "${category}", "movies":[{"title":,"rating":}]}
+  return `Suggest ${numberOfMovies} unique highly rated movie titles with their imdb rating that fit the ${category} category. Should not include this ${exisitingMovie}. All data is with double quotes.
+  Example:
+  {"category": "category", "movies":[{"title":"title 1","rating":"7.5"},{"title":"title 2","rating":"8.1"}]}
 `;
 };
 
 const generateMoviesByCategory = async (category, numberOfMovies) => {
-  //find the movie in side movie array of ai categroy that has the category name
   try {
     if (numberOfMovies > 15) {
       throw new Error('Number of movies must be less than 15');
@@ -29,10 +28,10 @@ const generateMoviesByCategory = async (category, numberOfMovies) => {
       temperature: 0.2,
       max_tokens: promptTokens + completionTokens,
     });
-
     const text = completion.data.choices[0].text;
 
     const data = JSON.parse(text);
+
     const movies = await Promise.all(
       data.movies.map(async (movie) => {
         const movieData = await getMovieByTitle(movie.title);

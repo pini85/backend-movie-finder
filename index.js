@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 app.use(bodyParser.json());
 require('./models/User');
 require('./models/SavedMovies');
-console.log('mongo password!', process.env.MONGO_URI);
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -31,7 +30,6 @@ app.use((req, res, next) => {
 // app.options('*', cors());
 // app.use(cors());
 app.get('/', (req, res) => {
-  console.log('hello world');
   res.send('hello world');
 });
 require('./routes/authRoutes')(app);

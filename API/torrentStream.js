@@ -9,7 +9,6 @@ const apiDomain = () => {
 
 const getTorrentStream = async (magnet) => {
   const url = apiDomain();
-  console.log({ url });
 
   //change ? in magnet to #
 

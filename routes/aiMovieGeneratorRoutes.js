@@ -50,10 +50,10 @@ module.exports = (app) => {
   });
   app.post('/api/ai/generateMoviesByCategory', async (req, res) => {
     const { categoryName, numberOfMovies } = req.body;
-    console.log({ categoryName, numberOfMovies });
+
     try {
       const movies = await generateMoviesByCategory(categoryName, numberOfMovies);
-
+      console.log(movies);
       await aiMovieCategories.findOneAndUpdate({ categoryName }, { $push: { movies } });
       res.send(movies);
     } catch (e) {
