@@ -1,4 +1,5 @@
 const openai = require('./config');
+const json5 = require('json5');
 const aiMovieCategories = require('../../models/aiMovieCategory');
 const { getMovieByTitle } = require('../../API/tmdb');
 
@@ -17,7 +18,8 @@ const generateMoviesByCategory = async (category, numberOfMovies) => {
     const categoryData = await aiMovieCategories.findOne({
       categoryName: category,
     });
-    const exisitingMovie = categoryData.mainMovie.title;
+
+    const exisitingMovie = categoryData?.mainMovie?.title ?? '';
 
     const promptTokens = generatePrompt(category).split(' ').length;
     const completionTokens = Number(numberOfMovies) * 11;
@@ -30,7 +32,7 @@ const generateMoviesByCategory = async (category, numberOfMovies) => {
     });
     const text = completion.data.choices[0].text;
 
-    const data = JSON.parse(text);
+    const data = json5.parse(text);
 
     const movies = await Promise.all(
       data.movies.map(async (movie) => {
